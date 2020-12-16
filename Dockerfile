@@ -1,14 +1,23 @@
-FROM 39.105.161.220:8086/base/centos7_jdk8:v1.0
+FROM centos
+MAINTAINER wxd wuxiaodong@qq.com
 
-MAINTAINER 1729768919@qq.com
+RUN mkdir /usr/local/java
+ADD jdk-8u261-linux-x64.tar.gz /usr/local/java/
+RUN ln -s /usr/local/java/jdk1.8.0_261 /usr/local/java/jdk
 
-VOLUME /logs/
+ENV JAVA_HOME /usr/local/java/jdk
+ENV JRE_HOME ${JAVA_HOME}/jre
+ENV CLASSPATH .:${JAVA_HOME}/lib:${JRE_HOME}/lib
+ENV PATH ${JAVA_HOME}/bin:$PATH
 
-COPY *.jar /cicdtest.jar
+ADD /target/cicddemo-0.0.1-SNAPSHOT.jar cicddemo-0.0.1-SNAPSHOT.jar
 
-ADD /target/cicdtest.jar /cicdtest/
+ENV TZ=Asia/Shanghai
 
-CMD ".........server.port=6060"
-EXPOSE 6060
+EXPOSE 7788
 
-ENTRYPOINT ["java","-jar","/cicdtest/cicdtest.jar"]
+ENV LC_ALL "zh_CN.UTF-8"
+
+#ENV JAVA_OPTS="-Xmx512m -Xms512m -Xmn192m -Xss256k -XX:SurvivorRatio=6 -XX:MetaspaceSize=300m -XX:ParallelGCThreads=8 -XX:MaxTenuringThreshold=0 -XX:+UseG1GC -XX:ConcGCThreads=8"
+
+ENTRYPOINT ["java","-jar","cicddemo-0.0.1-SNAPSHOT.jar"]
