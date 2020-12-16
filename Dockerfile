@@ -10,7 +10,7 @@ ENV JRE_HOME ${JAVA_HOME}/jre
 ENV CLASSPATH .:${JAVA_HOME}/lib:${JRE_HOME}/lib
 ENV PATH ${JAVA_HOME}/bin:$PATH
 
-ADD /target/cicddemo-0.0.1-SNAPSHOT.jar cicddemo-0.0.1-SNAPSHOT.jar
+ADD target/cicdtest-0.0.1-SNAPSHOT.jar cicdtest-0.0.1-SNAPSHOT.jar
 
 ENV TZ=Asia/Shanghai
 
@@ -20,4 +20,4 @@ ENV LC_ALL "zh_CN.UTF-8"
 
 #ENV JAVA_OPTS="-Xmx512m -Xms512m -Xmn192m -Xss256k -XX:SurvivorRatio=6 -XX:MetaspaceSize=300m -XX:ParallelGCThreads=8 -XX:MaxTenuringThreshold=0 -XX:+UseG1GC -XX:ConcGCThreads=8"
 
-ENTRYPOINT ["java","-jar","cicddemo-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar","cicdtest-0.0.1-SNAPSHOT.jar"]
